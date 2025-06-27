@@ -66,32 +66,32 @@
                 <thead class="bg-gray-50">
                 <tr>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product
+                        class="px-1 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product
                     </th>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price
+                        class="px-1 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price
                     </th>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity
+                        class="px-1 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity
                     </th>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total
+                        class="px-1 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total
                     </th>
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                 @foreach($order->items as $item)
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td class="px-1 sm:px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">{{ $item->product->name }}</div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td class="px-1 sm:px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">${{ number_format($item->price, 2) }}</div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td class="px-1 sm:px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">{{ $item->quantity }}</div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td class="px-1 sm:px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">
                                 ${{ number_format($item->price * $item->quantity, 2) }}</div>
                         </td>
@@ -100,10 +100,10 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td colspan="3" class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium text-gray-900">
+                    <td colspan="3" class="px-1 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium text-gray-900">
                         Order Total
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td class="px-1 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         ${{ number_format($order->total, 2) }}</td>
                 </tr>
                 </tfoot>
