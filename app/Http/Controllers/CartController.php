@@ -15,12 +15,18 @@ class CartController extends Controller
 
     public function add(Product $product, Request $request)
     {
-        $quantity = $request->input('quantity', 1);
-
+        $quantity = (int) $request->input('quantity', 1);
         $cart = session()->get('cart', []);
 
+        $existingQuantity = isset($cart[$product->id]) ? $cart[$product->id]['quantity'] : 0;
+        $newTotalQuantity = $existingQuantity + $quantity;
+
+        if ($newTotalQuantity > $product->stock) {
+            return redirect()->route('cart.index')->with('error', "Only {$product->stock} item(s) of {$product->name} available in stock.");
+        }
+
         if (isset($cart[$product->id])) {
-            $cart[$product->id]['quantity'] += $quantity;
+            $cart[$product->id]['quantity'] = $newTotalQuantity;
         } else {
             $cart[$product->id] = [
                 'product' => $product,
