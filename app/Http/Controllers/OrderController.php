@@ -14,7 +14,7 @@ class OrderController extends Controller
 
     public function __construct()
     {
-        $this->middleware('admin')->only(['updateStatus']);
+        $this->middleware('admin')->only(['updateStatus', 'viewOrder']);
     }
 
     /**

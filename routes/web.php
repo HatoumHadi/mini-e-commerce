@@ -13,6 +13,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+
 
     // Dashboard
     Route::get('/', function () {
@@ -38,7 +40,6 @@ Route::middleware(['auth', 'verified', 'customer'])->group(function () {
     // Orders
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
-    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::patch('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
 });
 

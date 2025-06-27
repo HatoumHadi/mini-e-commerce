@@ -24,7 +24,7 @@ use Illuminate\Auth\Access\Response;
      */
     public function view(User $user, Order $order)
     {
-        return $user->id === $order->user_id;
+        return $user->id === $order->user_id || $user->isAdmin();
     }
 
     public function cancel(User $user, Order $order)
