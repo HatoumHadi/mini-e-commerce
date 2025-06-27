@@ -61,11 +61,20 @@
                                 <div class="text-sm text-gray-900">${{ number_format($item['price'], 2) }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <form action="{{ route('cart.update', $item['product']) }}" method="POST" class="flex">
-                                    @csrf
-                                    <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="1" max="{{ $item['product']->stock }}" class="w-16 border rounded px-2 py-1">
-                                    <button type="submit" class="ml-2 text-sm text-blue-500">Update</button>
-                                </form>
+                                @if($item['product']->stock > 1)
+                                    <form action="{{ route('cart.update', $item['product']) }}" method="POST" class="flex">
+                                        @csrf
+                                        <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="1" max="{{ $item['product']->stock }}" class="w-16 border rounded px-2 py-1">
+                                        <button type="submit" class="ml-2 text-sm text-blue-500">Update</button>
+                                    </form>
+                                @else
+                                    <div class="flex items-center">
+                                        <span class="w-16 border rounded px-2 py-1 bg-gray-100">{{ $item['quantity'] }}</span>
+                                        @if($item['product']->stock == 0)
+                                            <span class="ml-2 text-sm text-red-500">Out of Stock</span>
+                                        @endif
+                                    </div>
+                                @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">${{ number_format($item['price'] * $item['quantity'], 2) }}</div>
@@ -96,7 +105,7 @@
                 </a>
                 <form action="{{ route('orders.store') }}" method="POST" class="inline-flex ml-2">
                     @csrf
-                    <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700">
+                    <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
                         Checkout
                     </button>
                 </form>
