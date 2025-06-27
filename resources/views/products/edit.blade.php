@@ -11,7 +11,7 @@
             <div class="p-6">
                 <form action="{{ route('products.update', $product) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
+                    @method('PATCH')
                     <div class="space-y-6">
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
