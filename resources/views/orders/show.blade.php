@@ -1,6 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+    @can('updateStatus', $order)
+        <div class="px-4 py-5 sm:px-6">
+            <h4 class="text-md font-medium text-gray-900">Update Order Status</h4>
+        </div>
+        <div class="px-4 py-5 sm:p-6 border-t border-gray-200">
+            <form action="{{ route('orders.updateStatus', $order) }}" method="POST">
+                @csrf
+                @method('PATCH')
+                <div class="flex items-center space-x-4">
+                    <select name="status"
+                            class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="processing" {{ $order->status === 'processing' ? 'selected' : '' }}>Processing
+                        </option>
+                        <option value="shipped" {{ $order->status === 'shipped' ? 'selected' : '' }}>Shipped</option>
+                        <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                    </select>
+                    <button type="submit"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Update Status
+                    </button>
+                </div>
+            </form>
+        </div>
+    @endcan
+
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
         <div class="px-4 py-5 sm:px-6">
             <h3 class="text-lg leading-6 font-medium text-gray-900">Order #{{ $order->id }}</h3>
@@ -103,28 +131,4 @@
 @endsection
 
 
-@can('updateStatus', $order)
-    <div class="px-4 py-5 sm:px-6">
-        <h4 class="text-md font-medium text-gray-900">Update Order Status</h4>
-    </div>
-    <div class="px-4 py-5 sm:p-6 border-t border-gray-200">
-        <form action="{{ route('orders.updateStatus', $order) }}" method="POST">
-            @csrf
-            @method('PATCH')
-            <div class="flex items-center space-x-4">
-                <select name="status"
-                        class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                    <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="processing" {{ $order->status === 'processing' ? 'selected' : '' }}>Processing
-                    </option>
-                    <option value="shipped" {{ $order->status === 'shipped' ? 'selected' : '' }}>Shipped</option>
-                    <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-                </select>
-                <button type="submit"
-                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    Update Status
-                </button>
-            </div>
-        </form>
-    </div>
-@endcan
+
